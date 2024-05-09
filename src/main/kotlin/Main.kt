@@ -12,6 +12,9 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
 class MyState {
@@ -174,10 +177,18 @@ fun Folder(
 
 fun main() {
     val state = MyState()
-    application {
-        Window(onCloseRequest = ::exitApplication) {
-            App(state)
+    runBlocking {
+        launch {
+            delay(4000L)
+            state.addFolder("New delayed folder")
+
+        }
+        application {
+            Window(onCloseRequest = ::exitApplication) {
+                App(state)
+            }
         }
     }
+
 }
 
